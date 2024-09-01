@@ -104,7 +104,8 @@ def main():
                 not st.session_state[keys]
                 or st.session_state[keys].endpoint != endpoints[keys]
             ):
-                st.session_state[keys] = ChatBot(api_key, endpoints[keys])
+                st.session_state[keys] = ChatBot(api_key=api_key,
+                                                 endpoint=endpoints[keys])
                 # Reset the chat if any of the ChatBots have been created
                 st.session_state["New Chat"] = True
 
@@ -121,7 +122,7 @@ def main():
         placeholder.write(
             """
             Usage:
-            1. Input your **Unify API Key**.  If you don’t have one yet,
+            1. Input your **Unify API Key**.  If you don't have one yet,
              log in to the [console](https://console.unify.ai/) to get yours.
             2. Choose your Endpoints (i.e. **Model and Provider**,
              in the [benchmark interface](https://unify.ai/hub)).
@@ -147,6 +148,7 @@ def main():
                         "Please enter the Unify API Key on the sidebar."
                     )
             else:
+                print(st.session_state)
                 st.error("Invalid key. Please check your Unify API Key.")
     else:
         llm_battle(

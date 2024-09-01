@@ -40,8 +40,13 @@ def get_providers(model: str) -> List[str]:
     Returns:
         List[str]: List of providers
     '''
-    url = f"{base_url}/endpoints_of"
-    response = requests.get(url, params={"model": model})
+    url = f"{base_url}/endpoints"
+
+    headers = {
+        'Authorization': f'Bearer {st.session_state["previous_api_key"]}'
+    }
+
+    response = requests.get(url, params={"model": model}, headers=headers)
     if response.status_code == 200:
         providers = [provider.split("@")[1]
                      for provider in json.loads(response.text)]
@@ -106,7 +111,10 @@ def list_models() -> List[str]:
         List[str]: List of models
     '''
     url = f"{base_url}/models"
-    response = requests.get(url)
+    headers = {
+        'Authorization': f'Bearer {st.session_state["previous_api_key"]}'
+    }
+    response = requests.get(url, headers=headers)
     if response.status_code == 200:
         return json.loads(response.text)
     else:
