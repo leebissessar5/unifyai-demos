@@ -148,7 +148,6 @@ def main():
                         "Please enter the Unify API Key on the sidebar."
                     )
             else:
-                print(st.session_state)
                 st.error("Invalid key. Please check your Unify API Key.")
     else:
         llm_battle(
